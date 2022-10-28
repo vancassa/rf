@@ -1,11 +1,21 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import TestSuiteTable from "./components/TestSuiteTable";
+
 function App() {
+  const [testSuites, setTestSuites] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3456/test_suites")
+      .then((res) => res.json())
+      .then((data) => {
+        setTestSuites(data);
+      });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
+      <TestSuiteTable testSuites={testSuites} />
     </div>
   );
 }
