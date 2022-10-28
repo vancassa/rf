@@ -21,9 +21,12 @@ const EditDialog = ({ name, testPlans, onClose }) => {
     setEditedTestPlans(newTestPlans);
   };
 
-  const submitTestSuite = () => {
-    console.log("editedTestPlans :>> ", editedTestPlans);
-    onClose();
+  const addTestPlan = () => {
+    const newTestPlans = [
+      ...editedTestPlans,
+      { test_name: "New test plan", browser: "chrome", instruction_count: 1 },
+    ];
+    setEditedTestPlans(newTestPlans);
   };
 
   const deleteTestPlan = (index) => {
@@ -34,6 +37,11 @@ const EditDialog = ({ name, testPlans, onClose }) => {
       newTestPlans.splice(index, 1);
       setEditedTestPlans(newTestPlans);
     }
+  };
+
+  const submitTestSuite = () => {
+    console.log("editedTestPlans :>> ", editedTestPlans);
+    onClose();
   };
 
   return (
@@ -80,7 +88,15 @@ const EditDialog = ({ name, testPlans, onClose }) => {
             );
           })}
         </ul>
-        <div style={{ color: "red" }}>{errorText}</div>
+
+        <div style={{ color: "red", marginBottom: 20 }}>{errorText}</div>
+
+        <div>
+          <button type="button" onClick={addTestPlan}>
+            Add test plan
+          </button>
+        </div>
+
         <button type="button" onClick={submitTestSuite}>
           Submit
         </button>
