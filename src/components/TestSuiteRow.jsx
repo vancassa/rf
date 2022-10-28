@@ -24,14 +24,16 @@ const TestSuiteRow = ({ name, testPlans }) => {
       )}
       <tr className="suite-row">
         <td>
-          <button onClick={() => setIsExpanded((prev) => !prev)}>
+          <button type="button" onClick={() => setIsExpanded((prev) => !prev)}>
             {isExpanded ? "ᐁ" : "ᐅ"}
           </button>
         </td>
         <td>{name}</td>
-        <td>{testPlans.length + 1} tests</td>
+        <td>{testPlans.length} tests</td>
         <td>
-          <button onClick={showEditDialog}>Edit</button>
+          <button type="button" onClick={showEditDialog}>
+            Edit
+          </button>
         </td>
       </tr>
       {isExpanded &&

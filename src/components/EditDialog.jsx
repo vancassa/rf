@@ -1,26 +1,45 @@
 import React, { useState } from "react";
 
 const EditDialog = ({ name, testPlans, onClose }) => {
+  const [errorText, setErrorText] = useState("");
   const [editedTestSuiteName, setEditedTestSuiteName] = useState(name);
   const [editedTestPlans, setEditedTestPlans] = useState(testPlans);
 
+  const editTestSuiteName = (e) => {
+    const newName = e.target.value;
+    console.log("newName :>> ", newName);
+    if (newName === "") {
+      setErrorText("Test suite name should not be empty");
+    } else {
+      setEditedTestSuiteName(newName);
+    }
+  };
+
   const editTestPlanField = (index, field, value) => {
-    const newTestPlan = [...editedTestPlans];
-    newTestPlan[index][field] = value;
-    setEditedTestPlans(newTestPlan);
+    const newTestPlans = [...editedTestPlans];
+    newTestPlans[index][field] = value;
+    setEditedTestPlans(newTestPlans);
   };
 
   const submitTestSuite = () => {
     console.log("editedTestPlans :>> ", editedTestPlans);
+    onClose();
+  };
+
+  const deleteTestPlan = (index) => {
+    if (editedTestPlans.length === 1) {
+      setErrorText("A test suite must contain at least one plan");
+    } else {
+      const newTestPlans = [...editedTestPlans];
+      newTestPlans.splice(index, 1);
+      setEditedTestPlans(newTestPlans);
+    }
   };
 
   return (
     <div className="dialog-container">
       <div className="dialog">
-        <input
-          value={editedTestSuiteName}
-          onChange={(e) => setEditedTestSuiteName(e.target.value)}
-        />
+        <input value={editedTestSuiteName} onChange={editTestSuiteName} />
         <ul>
           {editedTestPlans.map((testPlan, i) => {
             const { test_name, browser, instruction_count } = testPlan;
@@ -50,12 +69,24 @@ const EditDialog = ({ name, testPlans, onClose }) => {
                   }
                 />{" "}
                 steps
+                <button
+                  type="button"
+                  style={{ marginLeft: "5px" }}
+                  onClick={() => deleteTestPlan(i)}
+                >
+                  X
+                </button>
               </li>
             );
           })}
         </ul>
-        <button onClick={onClose}>Close</button>
-        <button onClick={submitTestSuite}>Submit</button>
+        <div style={{ color: "red" }}>{errorText}</div>
+        <button type="button" onClick={submitTestSuite}>
+          Submit
+        </button>
+        <button type="button" onClick={onClose}>
+          Close
+        </button>
       </div>
     </div>
   );
