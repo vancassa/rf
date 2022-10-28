@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EditDialog from "./EditDialog";
 
 const TestSuiteRow = ({ name, testPlans }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -8,8 +9,19 @@ const TestSuiteRow = ({ name, testPlans }) => {
     setIsEditDialogOpened(true);
   };
 
+  const closeEditDialog = () => {
+    setIsEditDialogOpened(false);
+  };
+
   return (
     <>
+      {isEditDialogOpened && (
+        <EditDialog
+          name={name}
+          testPlans={testPlans}
+          onClose={closeEditDialog}
+        />
+      )}
       <tr className="suite-row">
         <td>
           <button onClick={() => setIsExpanded((prev) => !prev)}>
