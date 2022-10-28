@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { validate } from "../utils";
 
 const EditDialog = ({ name, testPlans, onClose }) => {
   const [errorText, setErrorText] = useState("");
@@ -7,17 +8,12 @@ const EditDialog = ({ name, testPlans, onClose }) => {
 
   const editTestSuiteName = (e) => {
     const newName = e.target.value;
-    console.log("newName :>> ", newName);
-    if (newName === "") {
-      setErrorText("Test suite name should not be empty");
-    } else {
-      setEditedTestSuiteName(newName);
-    }
+    setEditedTestSuiteName(newName);
   };
 
   const editTestPlanField = (index, field, value) => {
     const newTestPlans = [...editedTestPlans];
-    newTestPlans[index][field] = value;
+    newTestPlans[index] = { ...newTestPlans[index], [field]: value };
     setEditedTestPlans(newTestPlans);
   };
 
@@ -40,8 +36,16 @@ const EditDialog = ({ name, testPlans, onClose }) => {
   };
 
   const submitTestSuite = () => {
-    console.log("editedTestPlans :>> ", editedTestPlans);
-    onClose();
+    const { isValid, errorMessage } = validate(
+      editedTestSuiteName,
+      editedTestPlans
+    );
+    if (isValid) {
+      console.log("editedTestPlans :>> ", editedTestPlans);
+      onClose();
+    } else {
+      setErrorText(errorMessage);
+    }
   };
 
   return (

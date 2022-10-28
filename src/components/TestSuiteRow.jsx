@@ -38,8 +38,8 @@ const TestSuiteRow = ({ name, testPlans }) => {
       </tr>
       {isExpanded &&
         testPlans.length > 0 &&
-        testPlans.map((testPlan) => (
-          <tr>
+        testPlans.map((testPlan, i) => (
+          <tr key={i}>
             <td style={{ paddingLeft: "24px" }} colSpan={2}>
               {testPlan.test_name}
             </td>
