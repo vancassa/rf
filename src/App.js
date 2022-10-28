@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import TestSuiteTable from "./components/TestSuiteTable";
+import "./App.css";
 
 function App() {
   const [testSuites, setTestSuites] = useState([]);

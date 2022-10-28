@@ -6,7 +6,11 @@ const TestSuiteTable = ({ testSuites }) => {
     <table>
       <tbody>
         {testSuites.map((testSuite) => (
-          <TestSuiteRow key={testSuite.id} testSuite={testSuite} />
+          <TestSuiteRow
+            key={testSuite.id}
+            name={testSuite.test_suite_name}
+            testPlans={testSuite.test_plans}
+          />
         ))}
       </tbody>
     </table>
