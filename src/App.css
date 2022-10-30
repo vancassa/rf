@@ -42,3 +42,8 @@ input,
 select {
   margin-left: 0.25rem;
 }
+
+.error-text {
+  color: red;
+  margin-bottom: 1.25rem;
+}

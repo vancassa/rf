@@ -112,7 +112,7 @@ const EditDialog = ({ testSuite, onClose }) => {
           })}
         </ul>
 
-        <div style={{ color: "red", marginBottom: 20 }}>{errorText}</div>
+        <div className="error-text">{errorText}</div>
 
         <div>
           <button type="button" onClick={addTestPlan}>
