@@ -41,7 +41,7 @@ const EditDialog = ({ name, testPlans, onClose }) => {
       editedTestPlans
     );
     if (isValid) {
-      console.log("editedTestPlans :>> ", editedTestPlans);
+      console.log(editedTestPlans);
       onClose();
     } else {
       setErrorText(errorMessage);
@@ -49,21 +49,28 @@ const EditDialog = ({ name, testPlans, onClose }) => {
   };
 
   return (
-    <div className="dialog-container">
+    <div className="dialog-container" role="dialog" aria-label="Edit dialog">
       <div className="dialog">
-        <input value={editedTestSuiteName} onChange={editTestSuiteName} />
+        <label htmlFor="testSuiteName">Test suite name</label>
+        <input
+          id="testSuiteName"
+          value={editedTestSuiteName}
+          onChange={editTestSuiteName}
+        />
         <ul>
           {editedTestPlans.map((testPlan, i) => {
             const { test_name, browser, instruction_count } = testPlan;
             return (
               <li key={i}>
                 <input
+                  name={`Test name ${i + 1}`}
                   value={test_name}
                   onChange={(e) =>
                     editTestPlanField(i, "test_name", e.target.value)
                   }
                 />
                 <select
+                  name="Browser"
                   value={browser}
                   onChange={(e) =>
                     editTestPlanField(i, "browser", e.target.value)
@@ -74,6 +81,7 @@ const EditDialog = ({ name, testPlans, onClose }) => {
                   <option value="safari" label="Safari" />
                 </select>
                 <input
+                  name="Instruction count"
                   type="number"
                   value={instruction_count}
                   onChange={(e) =>

@@ -45,15 +45,14 @@ export const validate = (testSuiteName, testPlans) => {
       return {
         isValid: false,
         errorMessage:
-          'Browswer must be one of "chrome", "firefox", "safari", or "edge"',
+          'Browser must be one of "chrome", "firefox", "safari", or "edge"',
       };
     }
 
     if (instruction_count <= 0 || instruction_count === "") {
-      console.log("instruction_count :>> ", instruction_count);
       return {
         isValid: false,
-        errorMessage: "Instruction count must be > 0",
+        errorMessage: "Instruction count must be more than 0",
       };
     }
   }

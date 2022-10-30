@@ -1,8 +1,21 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, waitFor } from "@testing-library/react";
+import App from "./App";
+import mockResponse from "./components/__tests__/mockTestSuite.json";
 
-test('renders header', () => {
+beforeEach(() => {
+  jest.spyOn(global, "fetch").mockResolvedValue({
+    json: jest.fn().mockResolvedValue(mockResponse),
+  });
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
+it(" shouldfetch on load", async () => {
   render(<App />);
-  const headerElement = screen.getByText(/and save to reload/i);
-  expect(headerElement).toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.getByText("Suite Mix Save Mental")).toBeInTheDocument();
+  });
 });
