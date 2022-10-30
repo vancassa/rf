@@ -7,7 +7,7 @@ table {
 }
 
 td {
-  padding-right: 1.5rem;
+  padding-right: 1rem;
 }
 
 .dialog-container {
@@ -31,4 +31,14 @@ td {
   min-width: 500px;
   overflow: auto;
   margin: 0 auto;
+}
+
+.unstyled {
+  border: none;
+  background: transparent;
+}
+
+input,
+select {
+  margin-left: 0.25rem;
 }

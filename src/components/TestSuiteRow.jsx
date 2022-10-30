@@ -8,14 +8,22 @@ const TestSuiteRow = ({ testSuite, onEditButtonClick }) => {
     <>
       <tr className="suite-row">
         <td>
-          <button type="button" onClick={() => setIsExpanded((prev) => !prev)}>
+          <button
+            type="button"
+            className="unstyled"
+            onClick={() => setIsExpanded((prev) => !prev)}
+          >
             {isExpanded ? "ᐁ" : "ᐅ"}
           </button>
         </td>
         <td>{testSuiteName}</td>
         <td>{testPlans.length} tests</td>
         <td>
-          <button type="button" onClick={onEditButtonClick}>
+          <button
+            type="button"
+            className="unstyled"
+            onClick={onEditButtonClick}
+          >
             Edit
           </button>
         </td>
@@ -24,7 +32,7 @@ const TestSuiteRow = ({ testSuite, onEditButtonClick }) => {
         testPlans.length > 0 &&
         testPlans.map((testPlan, i) => (
           <tr key={i}>
-            <td style={{ paddingLeft: "24px" }} colSpan={2}>
+            <td style={{ paddingLeft: "3rem" }} colSpan={2}>
               {testPlan.test_name}
             </td>
             <td>{testPlan.browser}</td>
