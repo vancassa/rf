@@ -2,6 +2,8 @@
 
 This is a UI to display and edit test suite plans with data coming from a sample API.
 
+![](./mockup.png)
+
 ## Setup
 
 **Requirements:** NodeJS >= 14, [yarn](https://yarnpkg.com/en/docs/install)
