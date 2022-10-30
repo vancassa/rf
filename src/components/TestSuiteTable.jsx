@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import EditDialog from "./EditDialog";
 import TestSuiteRow from "./TestSuiteRow";
 
 const TestSuiteTable = ({ testSuites }) => {
+  const [isEditDialogOpened, setIsEditDialogOpened] = useState(false);
+  const [testSuiteToEdit, setTestSuiteToEdit] = useState(null);
+
+  const showEditDialog = (testSuite) => {
+    setIsEditDialogOpened(true);
+    setTestSuiteToEdit(testSuite);
+  };
+
+  const closeEditDialog = () => {
+    setIsEditDialogOpened(false);
+    setTestSuiteToEdit(null);
+  };
+
   return (
-    <table>
-      <tbody>
-        {testSuites.map((testSuite) => (
-          <TestSuiteRow
-            key={testSuite.id}
-            name={testSuite.test_suite_name}
-            testPlans={testSuite.test_plans}
-          />
-        ))}
-      </tbody>
-    </table>
+    <>
+      {isEditDialogOpened && (
+        <EditDialog testSuite={testSuiteToEdit} onClose={closeEditDialog} />
+      )}
+      <table>
+        <tbody>
+          {testSuites.map((testSuite) => (
+            <TestSuiteRow
+              key={testSuite.id}
+              testSuite={testSuite}
+              onEditButtonClick={() => showEditDialog(testSuite)}
+            />
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

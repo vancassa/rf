@@ -1,37 +1,21 @@
 import React, { useState } from "react";
-import EditDialog from "./EditDialog";
 
-const TestSuiteRow = ({ name, testPlans }) => {
+const TestSuiteRow = ({ testSuite, onEditButtonClick }) => {
+  const { test_suite_name: testSuiteName, test_plans: testPlans } = testSuite;
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isEditDialogOpened, setIsEditDialogOpened] = useState(false);
-
-  const showEditDialog = () => {
-    setIsEditDialogOpened(true);
-  };
-
-  const closeEditDialog = () => {
-    setIsEditDialogOpened(false);
-  };
 
   return (
     <>
-      {isEditDialogOpened && (
-        <EditDialog
-          name={name}
-          testPlans={testPlans}
-          onClose={closeEditDialog}
-        />
-      )}
       <tr className="suite-row">
         <td>
           <button type="button" onClick={() => setIsExpanded((prev) => !prev)}>
             {isExpanded ? "ᐁ" : "ᐅ"}
           </button>
         </td>
-        <td>{name}</td>
+        <td>{testSuiteName}</td>
         <td>{testPlans.length} tests</td>
         <td>
-          <button type="button" onClick={showEditDialog}>
+          <button type="button" onClick={onEditButtonClick}>
             Edit
           </button>
         </td>

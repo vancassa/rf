@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { validate } from "../utils";
+import { validate } from "./utils/validate";
 
-const EditDialog = ({ name, testPlans, onClose }) => {
+const EditDialog = ({ testSuite, onClose }) => {
+  const { test_suite_name: testSuiteName, test_plans: testPlans } = testSuite;
   const [errorText, setErrorText] = useState("");
-  const [editedTestSuiteName, setEditedTestSuiteName] = useState(name);
+  const [editedTestSuiteName, setEditedTestSuiteName] = useState(testSuiteName);
   const [editedTestPlans, setEditedTestPlans] = useState(testPlans);
 
   const editTestSuiteName = (e) => {
@@ -41,6 +42,7 @@ const EditDialog = ({ name, testPlans, onClose }) => {
       editedTestPlans
     );
     if (isValid) {
+      // Log to console on submit
       console.log(editedTestPlans);
       onClose();
     } else {
@@ -62,32 +64,41 @@ const EditDialog = ({ name, testPlans, onClose }) => {
             const { test_name, browser, instruction_count } = testPlan;
             return (
               <li key={i}>
-                <input
-                  name={`Test name ${i + 1}`}
-                  value={test_name}
-                  onChange={(e) =>
-                    editTestPlanField(i, "test_name", e.target.value)
-                  }
-                />
-                <select
-                  name="Browser"
-                  value={browser}
-                  onChange={(e) =>
-                    editTestPlanField(i, "browser", e.target.value)
-                  }
-                >
-                  <option value="chrome" label="Chrome" />
-                  <option value="firefox" label="Firefox" />
-                  <option value="safari" label="Safari" />
-                </select>
-                <input
-                  name="Instruction count"
-                  type="number"
-                  value={instruction_count}
-                  onChange={(e) =>
-                    editTestPlanField(i, "instruction_count", e.target.value)
-                  }
-                />{" "}
+                <label>
+                  Test plan
+                  <input
+                    name={"Test name"}
+                    value={test_name}
+                    onChange={(e) =>
+                      editTestPlanField(i, "test_name", e.target.value)
+                    }
+                  />
+                </label>{" "}
+                <label>
+                  Browser
+                  <select
+                    name="Browser"
+                    value={browser}
+                    onChange={(e) =>
+                      editTestPlanField(i, "browser", e.target.value)
+                    }
+                  >
+                    <option value="chrome" label="Chrome" />
+                    <option value="firefox" label="Firefox" />
+                    <option value="safari" label="Safari" />
+                  </select>
+                </label>{" "}
+                <label>
+                  Instruction count
+                  <input
+                    name="Instruction count"
+                    type="number"
+                    value={instruction_count}
+                    onChange={(e) =>
+                      editTestPlanField(i, "instruction_count", e.target.value)
+                    }
+                  />
+                </label>{" "}
                 steps
                 <button
                   type="button"
