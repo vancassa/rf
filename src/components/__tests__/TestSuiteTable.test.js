@@ -1,12 +1,13 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import TestSuiteTable from "../TestSuiteTable";
+import { elements } from "../utils/elements";
 import testSuitesData from "./mockTestSuite.json";
 
 describe("Test suite table", () => {
   it("should render the table", () => {
     render(<TestSuiteTable testSuites={testSuitesData} />);
 
-    expect(screen.getAllByRole("row").length).toBe(2);
+    expect(elements.tableRows.length).toBe(2);
   });
 
   it("should show edit dialog when clicking on edit button", () => {
@@ -14,9 +15,7 @@ describe("Test suite table", () => {
 
     fireEvent.click(screen.getAllByRole("button", { name: "Edit" })[0]);
 
-    expect(
-      screen.getByRole("dialog", { name: "Edit dialog" })
-    ).toBeInTheDocument();
+    expect(elements.editDialog).toBeInTheDocument();
   });
 
   it("should be able to close edit dialog", () => {
@@ -25,8 +24,6 @@ describe("Test suite table", () => {
     fireEvent.click(screen.getAllByRole("button", { name: "Edit" })[0]);
     fireEvent.click(screen.getByRole("button", { name: "Close" }));
 
-    expect(
-      screen.queryByRole("dialog", { name: "Edit dialog" })
-    ).not.toBeInTheDocument();
+    expect(elements.queryEditDialog).not.toBeInTheDocument();
   });
 });
